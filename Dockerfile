@@ -7,9 +7,10 @@ ENV SQUID_VERSION=4.10-r0
 RUN apk add --no-cache squid="$SQUID_VERSION"
 
 RUN set -x \
-        && sed -i '/http_access deny !Safe_ports/ s/^#*/#/' /etc/squid/squid.conf \
-        && sed -i '/http_access deny CONNECT !SSL_ports/ s/^#*/#/' /etc/squid/squid.conf \
-        && sed -i '/http_access deny all/ s/^#*/#/' /etc/squid/squid.conf
+	&& sed -i '/http_access deny !Safe_ports/ s/^#*/#/' /etc/squid/squid.conf \
+	&& sed -i '/http_access deny CONNECT !SSL_ports/ s/^#*/#/' /etc/squid/squid.conf \
+	&& sed -i '/http_access deny all/ s/^#*/#/' /etc/squid/squid.conf \
+	&& echo "http_access allow all" >> /etc/squid/squid.conf
 
 WORKDIR /etc/squid
 
