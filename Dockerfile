@@ -11,4 +11,6 @@ RUN set -x \
 	&& sed -i '/http_access deny CONNECT !SSL_ports/ s/^#*/#/' /etc/squid/squid.conf \
 	&& sed -i '/http_access deny all/ s/^#*/#/' /etc/squid/squid.conf
 
+EXPOSE 3128
+
 CMD ["squid", "-N"]
