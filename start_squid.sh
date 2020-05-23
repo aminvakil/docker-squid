@@ -13,11 +13,10 @@ touch /etc/squid/users
 
 realm="MyRealm"
 
-digest="$( printf "%s:%s:%s" "$user" "$realm" "$password" | md5sum | awk '{print $1}' )"
-
 for i in $USERS ; do
-    NAME=$(echo $i | cut -d'|' -f1)
-    PASS=$(echo $i | cut -d'|' -f2)
+    user=$(echo $i | cut -d'|' -f1)
+    pass=$(echo $i | cut -d'|' -f2)
+    digest="$( printf "%s:%s:%s" "$user" "$realm" "$pass" | md5sum | awk '{print $1}' )"
     printf "%s:%s:%s\n" "$user" "$realm" "$digest" >> "/etc/squid/users"
 done
 
@@ -26,6 +25,7 @@ auth_param digest children 5
 auth_param digest realm "$realm"
 
 acl users proxy_auth REQUIRED
-http_access allow users" >> /etc/squid/squid.conf
+http_access allow users
+http_access deny all" >> /etc/squid/squid.conf
 
 exec "$@"
