@@ -8,15 +8,7 @@ RUN apk add --no-cache squid="$SQUID_VERSION"
 
 RUN set -x \
 	&& sed -i '/http_access deny !Safe_ports/ s/^#*/#/' /etc/squid/squid.conf \
-	&& sed -i '/http_access deny CONNECT !SSL_ports/ s/^#*/#/' /etc/squid/squid.conf
-
-WORKDIR /etc/squid
-
-EXPOSE 3128
-
-COPY start_squid.sh /usr/local/bin/start_squid.sh
-COPY squid.conf /etc/squid/squid.conf
-
-ENTRYPOINT ["/usr/local/bin/start_squid.sh"]
+	&& sed -i '/http_access deny CONNECT !SSL_ports/ s/^#*/#/' /etc/squid/squid.conf \
+	&& sed -i '/http_access deny all/ s/^#*/#/' /etc/squid/squid.conf \
 
 CMD ["squid", "-N"]
