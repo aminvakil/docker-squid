@@ -15,6 +15,7 @@ WORKDIR /etc/squid
 EXPOSE 3128
 
 COPY start_squid.sh /usr/local/bin/start_squid.sh
+COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
 
 ENTRYPOINT ["/usr/local/bin/start_squid.sh"]
 
