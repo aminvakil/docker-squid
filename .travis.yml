@@ -24,5 +24,5 @@ script:
 - curl -s 127.0.0.1:${CLIENT_PORT} | grep -q squid
 - hadolint Dockerfile
 - docker stop ${DOCKERCONTAINER} && docker rm -fv ${DOCKERCONTAINER}
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- echo "$DOCKER_PASSWORD" | docker login -u aminvakil --password-stdin
 - docker push aminvakil/squid
