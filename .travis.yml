@@ -26,5 +26,5 @@ script:
 - docker stop ${DOCKERCONTAINER} && docker rm -fv ${DOCKERCONTAINER}
 after_success:
 - docker tag ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT} aminvakil/squid
-- echo "$DOCKER_PASSWORD" | docker login -u aminvakil --password-stdin
-- docker push aminvakil/squid
+- echo "$DOCKER_PASSWORD" | docker login quay.io -u aminvakil --password-stdin
+- docker push quay.io/aminvakil/squid
