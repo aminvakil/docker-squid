@@ -29,6 +29,9 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
       - name: Find an open port.
         run: |
           CLIENT_PORT=$(cat /dev/urandom | od -N2 -An -i | awk -v f=10000 -v r=19999 '{printf "%i\n", f + r * $1 / 65536}')
