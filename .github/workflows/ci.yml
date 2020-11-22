@@ -58,7 +58,7 @@ jobs:
         run: docker stop ${DOCKERCONTAINER} && docker rm -fv ${DOCKERCONTAINER}
 
   deploy:
-    if: ${{ github.ref == 'master' }}
+    if: ${{ github.ref == 'refs/heads/master' }}
     needs: build
     name: Push to Quay
     runs-on: ubuntu-latest
