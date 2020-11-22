@@ -26,7 +26,6 @@ jobs:
         run: hadolint Dockerfile
 
   build:
-    needs: hadolint
     name: Build and test docker
     runs-on: ubuntu-latest
     steps:
@@ -59,7 +58,7 @@ jobs:
 
   deploy:
     if: ${{ github.ref == 'refs/heads/master' }}
-    needs: build
+    needs: [hadolint, build]
     name: Push to Quay
     runs-on: ubuntu-latest
     steps:
