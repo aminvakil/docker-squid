@@ -1,5 +1,5 @@
 ---
-name: CI
+name: CI/CD
 'on':
   pull_request:
   push:
@@ -9,7 +9,7 @@ name: CI
 jobs:
 
   hadolint:
-    name: hadolint
+    name: Test dockerfile syntax
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
@@ -26,7 +26,8 @@ jobs:
         run: hadolint Dockerfile
 
   build:
-    name: build
+    needs: hadolint
+    name: Build and test docker
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
@@ -47,14 +48,29 @@ jobs:
           sleep 5
           echo "DOCKERCONTAINER=$DOCKERCONTAINER" >> $GITHUB_ENV
 
-      - name: Check if container is still running
+      - name: Check if container is still running.
         run: docker ps -f id=${DOCKERCONTAINER}
-
-      - name: test
-        run: echo ${CLIENT_PORT}
 
       - name: Check if the port is responding.
         run: curl -s 127.0.0.1:${CLIENT_PORT} | grep -q squid
 
       - name: Check if the container is correctly stopped and removed.
         run: docker stop ${DOCKERCONTAINER} && docker rm -fv ${DOCKERCONTAINER}
+
+  deploy:
+    if: ${{ github.ref == 'master' }}
+    needs: build
+    name: Push to Quay
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Push to Quay
+        uses: docker/build-push-action@v2
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+          repository: ${GITHUB_REPOSITORY}:${GITHUB_RUN_ID}
+          tag_with_ref: true
