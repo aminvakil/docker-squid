@@ -68,6 +68,8 @@ jobs:
 
       - name: Push to Quay
         uses: docker/build-push-action@v2
+        push: yes
+        tags: aminvakil/squid:latest
         with:
           registry: quay.io
           username: ${{ secrets.QUAY_USERNAME }}
