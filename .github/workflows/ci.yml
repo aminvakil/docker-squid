@@ -36,16 +36,13 @@ jobs:
         run: |
           CLIENT_PORT=$(cat /dev/urandom | od -N2 -An -i | awk -v f=10000 -v r=19999 '{printf "%i\n", f + r * $1 / 65536}')
           [ $(netstat -an | grep LISTEN | grep :$CLIENT_PORT | wc -l) -eq 0 ] || { ./$0 && exit 0 || exit 1; }
-          ls -l
-          ls .. -l
-          ls ../.. -l
 
       - name: Build docker image.
         run: docker build --no-cache --tag ${GITHUB_REPOSITORY}:${GITHUB_ACTION} .
 
       - name: Run a container of created image.
         run: |
-          DOCKERCONTAINER=$(docker run -d -p 127.0.0.1:${CLIENT_PORT}:3128 ${GITHUB_REPOSITORY}:${GITHUB_ACTION}
+          DOCKERCONTAINER=$(docker run -d -p 127.0.0.1:${CLIENT_PORT}:3128 ${GITHUB_REPOSITORY}:${GITHUB_ACTION})
           sleep 5
 
       - name: Check if container is still running
