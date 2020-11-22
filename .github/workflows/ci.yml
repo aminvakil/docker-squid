@@ -69,7 +69,7 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           registry: quay.io
-          push: yes
+          push: true
           tags: latest
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
