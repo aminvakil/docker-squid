@@ -48,6 +48,9 @@ jobs:
       - name: Check if container is still running
         run: docker ps -f id=${DOCKERCONTAINER}
 
+      - name: test
+        run: docker ps && echo ${DOCKERCONTAINER}
+
       - name: Check if the port is responding.
         run: curl -s 127.0.0.1:${CLIENT_PORT} | grep -q squid
 
