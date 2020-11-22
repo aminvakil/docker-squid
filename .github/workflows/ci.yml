@@ -17,8 +17,8 @@ jobs:
 
       - name: Install hadolint.
         run: |
-          curl -L https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-$(uname -s)-$(uname -m) -o /usr/local/bin/hadolint
-          chmod 755 /usr/local/bin/hadolint
+          sudo curl -L https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-$(uname -s)-$(uname -m) -o /usr/local/bin/hadolint
+          sudo chmod 755 /usr/local/bin/hadolint
         env:
           HADOLINT_VERSION: 1.19.0
 
