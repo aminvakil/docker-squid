@@ -70,8 +70,7 @@ jobs:
         with:
           registry: quay.io
           push: yes
-          tags: aminvakil/squid:latest
+          tags: latest
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
-          repository: ${GITHUB_REPOSITORY}:${GITHUB_RUN_ID}
-          tag_with_ref: true
+          repository: aminvakil/squid
