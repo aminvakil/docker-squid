@@ -78,4 +78,4 @@ jobs:
           file: ./Dockerfile
           pull: true
           push: true
-          tags: aminvakil/squid:latest
+          tags: quay.io/aminvakil/squid:latest
