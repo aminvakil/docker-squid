@@ -4,7 +4,7 @@ name: CI/CD
   pull_request:
   push:
     branches:
-      - trivy
+      - master
 
 jobs:
 
