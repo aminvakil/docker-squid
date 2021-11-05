@@ -2,7 +2,7 @@ FROM alpine:3.14.2
 
 LABEL maintainer="Amin Vakil <info@aminvakil.com>"
 
-ENV SQUID_VERSION=5.0.6-r0
+ENV SQUID_VERSION=5.0.6-r2
 
 RUN apk add --no-cache squid="$SQUID_VERSION" && \
     set -x \
